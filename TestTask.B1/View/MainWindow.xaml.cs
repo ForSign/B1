@@ -24,19 +24,6 @@ namespace TestTask.B1
         public MainWindow()
         {
             InitializeComponent();
-            Model.Generator gen = new Model.Generator();
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
-            Trace.WriteLine(gen.RandomSet());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace TestTask.B1.Model
 
         public int RandomInt()
         {
-            return gen.Next(0, maxInt);
+            return gen.Next(0, maxInt + 1);
         }
 
         public double RandomDouble()
@@ -51,6 +52,23 @@ namespace TestTask.B1.Model
                 $"{RandomDouble()}";
 
             return randomSet;
+        }
+
+        public void GenerateFiles(Func<string> randomSet, int fileCount, int lineCount, string pathDir)
+        {
+            Directory.CreateDirectory(pathDir);
+            for (int i = 0; i < fileCount; i++)
+            {
+                using (var fs = File.OpenWrite($"{pathDir}\\{i}.txt"))
+                using (var w = new StreamWriter(fs))
+                {
+                    for (var j = 0; j < lineCount; j++)
+                    {
+                        var line = $"{randomSet()}";
+                        w.WriteLine(line);
+                    }
+                }
+            }
         }
     }
 }
