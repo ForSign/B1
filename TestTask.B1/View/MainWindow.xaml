@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:TestTask.B1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <!-- Menu. -->
+    <DockPanel>
+        <Menu MinHeight="20" Background="#FFA9D1F4" DockPanel.Dock="Top">
+            <MenuItem MinHeight="20" Header="Emulator">
+                <MenuItem Header="Generate Files" Click="MenuItem_GenFiles" />
+                <MenuItem Header="Merge Files" Click="MenuItem_MergeFiles" />
+                <Separator />
+                <MenuItem Click="MenuItem_Click">
+                    <MenuItem.Header>
+                        <DockPanel>
+                            <TextBlock>Step</TextBlock>
+                            <!--<TextBlock Width="10"></TextBlock>-->
+                            <!--<TextBlock HorizontalAlignment="Right">F2</TextBlock>-->
+                        </DockPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel></StackPanel>
+    </DockPanel>
 </Window>

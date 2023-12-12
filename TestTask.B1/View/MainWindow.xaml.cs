@@ -25,5 +25,24 @@ namespace TestTask.B1
         {
             InitializeComponent();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Trace.WriteLine("TestMenuBAR");
+        }
+
+        private void MenuItem_GenFiles(object sender, RoutedEventArgs e)
+        {
+            Model.Generator generator = new Model.Generator();
+            generator.GenerateFiles(generator.RandomSet, 5, 50, "COOK");
+            Trace.WriteLine("Generate Files Complete");
+        }
+
+        private void MenuItem_MergeFiles(object sender, RoutedEventArgs e)
+        {
+            Library.FileMerge fm = new Library.FileMerge();
+            fm.PurgeFiles(new string[] {"mo", "CX", "Y"}, "COOK");
+            fm.MergeFiles("COOK", "FINISH\\finish.txt");
+        }
     }
 }
