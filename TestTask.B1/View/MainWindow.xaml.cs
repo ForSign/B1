@@ -26,11 +26,6 @@ namespace TestTask.B1
             InitializeComponent();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("TestMenuBAR");
-        }
-
         private void MenuItem_GenFiles(object sender, RoutedEventArgs e)
         {
             Model.Generator generator = new Model.Generator();
@@ -43,6 +38,31 @@ namespace TestTask.B1
             Library.FileMerge fm = new Library.FileMerge();
             fm.PurgeFiles(new string[] {"mo", "CX", "Y"}, "COOK");
             fm.MergeFiles("COOK", "FINISH\\finish.txt");
+        }
+
+        private void MenuItem_InsertFiles(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_CountMAS(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_UploadXLS(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_ViewUploaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_SwitchFileView(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

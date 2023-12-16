@@ -5,25 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestTask.B1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="900">
     <!-- Menu. -->
     <DockPanel>
         <Menu MinHeight="20" Background="#FFA9D1F4" DockPanel.Dock="Top">
-            <MenuItem MinHeight="20" Header="Emulator">
+            <MenuItem MinHeight="20" Header="Task 1">
                 <MenuItem Header="Generate Files" Click="MenuItem_GenFiles" />
                 <MenuItem Header="Merge Files" Click="MenuItem_MergeFiles" />
+                <MenuItem Header="Insert Files" Click="MenuItem_InsertFiles" />
                 <Separator />
-                <MenuItem Click="MenuItem_Click">
+                <MenuItem Click="MenuItem_CountMAS">
                     <MenuItem.Header>
                         <DockPanel>
-                            <TextBlock>Step</TextBlock>
+                            <TextBlock>Count Median and Sum</TextBlock>
                             <!--<TextBlock Width="10"></TextBlock>-->
-                            <!--<TextBlock HorizontalAlignment="Right">F2</TextBlock>-->
+                            <!--<TextBlock HorizontalAlignment="Right">F1</TextBlock>-->
+                        </DockPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem MinHeight="20" Header="Task 2">
+                <MenuItem Header="Upload XLS to DataBase" Click="MenuItem_UploadXLS" />
+                <MenuItem Header="View uploaded files" Click="MenuItem_ViewUploaded" />
+                <Separator />
+                <MenuItem Click="MenuItem_SwitchFileView">
+                    <MenuItem.Header>
+                        <DockPanel>
+                            <TextBlock>Switch File View</TextBlock>
+                            <TextBlock Width="10"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right">F2</TextBlock>
                         </DockPanel>
                     </MenuItem.Header>
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel></StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="300" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <DataGrid d:ItemsSource="{d:SampleData ItemCount=20}" BorderBrush="{x:Null}"/>
+            <Border Grid.Row="1" BorderBrush="#FFD5D5D5" BorderThickness="0,1,0,0">
+                <TextBlock />
+            </Border>
+        </Grid>
     </DockPanel>
 </Window>
