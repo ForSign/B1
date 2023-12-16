@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Xaml;
 
 namespace TestTask.B1.Library
@@ -14,7 +16,10 @@ namespace TestTask.B1.Library
 
         private static string[] InitTables = new string[] { "" };
         private string dbPath = System.Environment.CurrentDirectory + "\\db";
+        private string dbFilePath;
         private string strConnection;
+
+        private SQLiteConnection connection;
 
         private dbWorker() 
         {
@@ -30,6 +35,11 @@ namespace TestTask.B1.Library
                 "`DoubleValue` REAL, " +
                 "PRIMARY KEY(`id` AUTOINCREMENT));";
 
+            CreateSQLiteDbFile();
+            this.connection = new SQLiteConnection(strConnection);
+            this.connection.Open();
+
+            ExecuteNonQuery(InitTables);
         }
 
         internal static dbWorker getInstance()
@@ -44,22 +54,36 @@ namespace TestTask.B1.Library
             return _instance;
         }
 
-        internal static void QueryDataToSQL()
+        private void CreateSQLiteDbFile()
+        {
+            if (!string.IsNullOrEmpty(dbPath) && !Directory.Exists(dbPath))
+                Directory.CreateDirectory(dbPath);
+
+            dbFilePath = dbPath + "\\TestTask.sqlite";
+
+            if (!System.IO.File.Exists(dbFilePath))
+            {
+                SQLiteConnection.CreateFile(dbFilePath);
+            }
+        }
+
+        internal void ExecuteNonQuery(string[] sqliteCommands)
         {
             try
             {
-                using (var connection = new SqlConnection())
-                using (var command = new SqlCommand())
+                using (var command = new SQLiteCommand("", this.connection))
                 {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-
-                    // Do whatever else you need to.
+                    foreach (var cmd in sqliteCommands)
+                    {
+                        command.CommandText = cmd;
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (SQLiteException e)
             {
-                // Handle any exception.
+                Trace.TraceError(e.Message);
+                throw;
             }
         }
     }
