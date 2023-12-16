@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TestTask.B1.View;
 
 namespace TestTask.B1
 {
@@ -28,9 +29,8 @@ namespace TestTask.B1
 
         private void MenuItem_GenFiles(object sender, RoutedEventArgs e)
         {
-            Model.Generator generator = new Model.Generator();
-            generator.GenerateFiles(generator.RandomSet, 5, 50, "COOK");
-            Trace.WriteLine("Generate Files Complete");
+            GenerateFilesPage generateFilesPage = new GenerateFilesPage();
+            generateFilesPage.ShowDialog();
         }
 
         private void MenuItem_MergeFiles(object sender, RoutedEventArgs e)
