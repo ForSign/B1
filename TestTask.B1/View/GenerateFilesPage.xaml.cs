@@ -51,7 +51,7 @@ namespace TestTask.B1.View
                 return;
             }
 
-            this.Visibility = Visibility.Hidden;
+            this.Hide();
 
             Model.Generator generator = new Model.Generator();
             generator.GenerateFiles(generator.RandomSet, fileCount, lineCount, FolderPath);

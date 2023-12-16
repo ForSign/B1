@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
@@ -6,18 +7,56 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TestTask.B1.Library
 {
-    internal class FileMerge
+    internal static class FileWorker
     {
-        public void MergeFiles(string pathDir, string outFilePath)
+        internal static string[]? OpenFile(bool Multiselect)
         {
-            string[] files = Directory.GetFiles(pathDir);
+            var dlg = new OpenFileDialog();
+
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Txt files (.txt)|*.txt";
+            dlg.Multiselect = Multiselect;
+
+            Nullable<bool> dialogResult = dlg.ShowDialog();
+
+            if (dialogResult != true)
+            {
+                MessageBox.Show("You need to select file to open");
+                return null;
+            }
+
+            if (Multiselect)
+                return dlg.FileNames;
+            return new string[] { dlg.FileName };
+        }
+
+        internal static string? SaveFile()
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Txt files (.txt)|*.txt";
+
+            Nullable<bool> dialogResult = dlg.ShowDialog();
+
+            if (dialogResult != true)
+            {
+                MessageBox.Show("You need to select save file location");
+                return null;
+            }
+
+            return dlg.FileName;
+        }
+
+        internal static void MergeFiles(string[] files, string outFilePath)
+        {
             Trace.WriteLine($"Total files queued for merge: {files.Length}");
             Trace.TraceWarning("Merge will overwrite file at it's destination if exists");
 
-            //Directory.CreateDirectory(outFilePath);
             using (var fs = File.Create(outFilePath))
             {
                 foreach (var file in files)
@@ -31,9 +70,8 @@ namespace TestTask.B1.Library
             }
         }
 
-        public void PurgeFiles(string[] filterArray, string pathDir)
+        internal static void PurgeFiles(string[] filterArray, string[] files)
         {
-            string[] files = Directory.GetFiles(pathDir);
             int total = 0;
             Trace.WriteLine($"Total files queued for purged: {files.Length}");
 
@@ -45,7 +83,7 @@ namespace TestTask.B1.Library
                 using (var sr = new StreamReader(file))
                 using (var sw = new StreamWriter(temp))
                 {
-                    string line;
+                    string? line;
 
                     while ((line = sr.ReadLine()) != null)
                     {

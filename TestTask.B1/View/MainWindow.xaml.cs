@@ -35,9 +35,12 @@ namespace TestTask.B1
 
         private void MenuItem_MergeFiles(object sender, RoutedEventArgs e)
         {
-            Library.FileMerge fm = new Library.FileMerge();
-            fm.PurgeFiles(new string[] {"mo", "CX", "Y"}, "COOK");
-            fm.MergeFiles("COOK", "FINISH\\finish.txt");
+            MergeFilesPage mergeFilesPage = new MergeFilesPage();
+            mergeFilesPage.ShowDialog();
+
+            //Library.FileMerge fm = new Library.FileMerge();
+            //fm.PurgeFiles(new string[] {"mo", "CX", "Y"}, "COOK");
+            //fm.MergeFiles("COOK", "FINISH\\finish.txt");
         }
 
         private void MenuItem_InsertFiles(object sender, RoutedEventArgs e)
