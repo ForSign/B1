@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Windows;
+using System.Windows.Input;
 using System.Xaml;
 
 namespace TestTask.B1.Library
@@ -23,7 +26,8 @@ namespace TestTask.B1.Library
 
         private dbWorker() 
         {
-            this.strConnection = string.Format("Data Source={0};", this.dbPath);
+            CreateSQLiteDbFile();
+            this.strConnection = $"Data Source={dbFilePath};";
 
             InitTables[0] = "" +
                 "CREATE TABLE IF NOT EXISTS Task_1 (" +
@@ -35,9 +39,8 @@ namespace TestTask.B1.Library
                 "`DoubleValue` REAL, " +
                 "PRIMARY KEY(`id` AUTOINCREMENT));";
 
-            CreateSQLiteDbFile();
-            this.connection = new SQLiteConnection(strConnection);
-            this.connection.Open();
+            connection = new SQLiteConnection(this.strConnection);
+            connection.Open();
 
             ExecuteNonQuery(InitTables);
         }
@@ -85,6 +88,15 @@ namespace TestTask.B1.Library
                 Trace.TraceError(e.Message);
                 throw;
             }
+        }
+
+        internal SQLiteDataReader ExecuteReader(string sqlCommand)
+        {
+            MethodInfo dbCreateCommand = typeof(SQLiteConnection).GetMethod("CreateCommand");
+            SQLiteCommand triggerCommand = (SQLiteCommand)dbCreateCommand.Invoke(connection, null);
+            typeof(SQLiteCommand).GetProperty("CommandText").SetValue(triggerCommand, sqlCommand);
+            MethodInfo executeReader = typeof(SQLiteCommand).GetMethod("ExecuteReader", Type.EmptyTypes);
+            return (SQLiteDataReader)executeReader.Invoke(triggerCommand, null);
         }
     }
 }

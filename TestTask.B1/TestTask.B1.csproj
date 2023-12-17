@@ -13,4 +13,10 @@
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.118" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="static\external_sql.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
