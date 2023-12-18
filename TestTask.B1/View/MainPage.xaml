@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestTask.B1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="900">
+        Title="TeskTask.B1" Height="500" Width="900">
     <!-- Menu. -->
     <DockPanel>
         <Menu MinHeight="20" Background="#FFA9D1F4" DockPanel.Dock="Top">
@@ -44,7 +44,17 @@
                 <RowDefinition MinHeight="300" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <DataGrid d:ItemsSource="{d:SampleData ItemCount=20}" BorderBrush="{x:Null}"/>
+            <DataGrid x:Name="Dg_BankData" Visibility="Visible" SelectionUnit="FullRow" AutoGenerateColumns="False" ItemsSource="{Binding Path=XlsDataSet}" HorizontalGridLinesBrush="#FFB9B9B9" VerticalGridLinesBrush="#FFB9B9B9" BorderBrush="{x:Null}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=ID}" Header="Б/сч" Width="40" IsReadOnly="True" Visibility="Visible"/>
+                    <DataGridTextColumn Binding="{Binding Path=InputBalanceActive}" Header="Актив" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=InputBalancePassive}" Header="Пассив" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=DebitTurnover}" Header="Дебет" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=LoanTurnover}" Header="Кредит" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=OutputBalanceActive}" Header="Актив" Width="150" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=OutputBalancePassive}" Header="Пассив" Width="150" IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
             <Border Grid.Row="1" BorderBrush="#FFD5D5D5" BorderThickness="0,1,0,0">
                 <TextBlock />
             </Border>
