@@ -32,9 +32,9 @@
         </Menu>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition MinHeight="300" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" BorderBrush="#FFD5D5D5" BorderThickness="0,1,0,0">
+            <Border BorderBrush="#FFD5D5D5" VerticalAlignment="Stretch" BorderThickness="0,1,0,0">
                 <localView:TraceTextBoxControl HorizontalAlignment="Stretch" />
             </Border>
         </Grid>

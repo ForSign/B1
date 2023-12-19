@@ -85,11 +85,9 @@ namespace TestTask.B1.Library
 
         internal MySqlDataReader ExecuteReader(string sqlCommand)
         {
-            MethodInfo dbCreateCommand = typeof(MySqlConnection).GetMethod("CreateCommand");
-            MySqlCommand triggerCommand = (MySqlCommand)dbCreateCommand.Invoke(connection, null);
-            typeof(MySqlCommand).GetProperty("CommandText").SetValue(triggerCommand, sqlCommand);
-            MethodInfo executeReader = typeof(MySqlCommand).GetMethod("ExecuteReader", Type.EmptyTypes);
-            return (MySqlDataReader)executeReader.Invoke(triggerCommand, null);
+            var command = new MySqlCommand("", connection);
+            command.CommandText = sqlCommand;
+            return command.ExecuteReader();
         }
     }
 }

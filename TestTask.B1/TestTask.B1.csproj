@@ -22,7 +22,7 @@
 
   <ItemGroup>
 	  <Content Include="settings\config.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Folder Include="static\sql\" />
   </ItemGroup>
@@ -33,10 +33,10 @@
 
   <ItemGroup>
     <None Update="static\sql\db_initial.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="static\sql\external_sql.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

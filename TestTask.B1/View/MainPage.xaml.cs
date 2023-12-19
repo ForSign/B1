@@ -52,6 +52,10 @@ namespace TestTask.B1
 
         private void MenuItem_InsertFiles(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Do you wish to filter files beforehand?", "Warning", MessageBoxButton.YesNo)
+                == MessageBoxResult.Yes)
+                (new MergeFilesPage()).ShowDialog();
+
             BackgroundWorker worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
@@ -61,9 +65,6 @@ namespace TestTask.B1
 
         private void worker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            if (MessageBox.Show("Do you wish to filter files beforehand?", "Warning", MessageBoxButton.YesNo)
-                == MessageBoxResult.Yes)
-                (new MergeFilesPage()).ShowDialog();
 
             MessageBox.Show("Select File / Files you wish to import");
 
@@ -85,23 +86,30 @@ namespace TestTask.B1
                 int currentLine = 0;
 
                 var db = dbWorker.getInstance();
+                bool dataCorrupted = false;
 
                 while ((line = sr.ReadLine()) != null)
                 {
                     currentLine++;
                     Trace.WriteLine($"Importing {currentLine} line out of {totalLines}. Left: {totalLines - currentLine}");
-                    //(sender as BackgroundWorker).ReportProgress(currentLine / totalLines);
 
                     data = line.Split("||");
+                    if (data.Length < 5)
+                    {
+                        dataCorrupted = true;
+                        continue;
+                    }
+
                     sqlCommand = "insert into Task_1 " +
                         $"(date_timestamp, charset_eng, charset_rus, decimal_value, double_value) " +
                         $"values " +
                         $"('{data[0]}', '{data[1]}', '{data[2]}', '{data[3]}', '{data[4]}');";
 
                     db.ExecuteNonQuery(new string[] { sqlCommand });
-                    Thread.Sleep(100);
                 }
 
+                if (dataCorrupted)
+                    Trace.TraceWarning("Part of the date was corrupted and cannot be imported, therefor it was skipped");
                 Trace.WriteLine("Done importing");
             }
         }
@@ -129,20 +137,19 @@ namespace TestTask.B1
         private void MenuItem_UploadXLS(object sender, RoutedEventArgs e)
         {
             string? fileName = FileWorker.OpenFile(Multiselect: false, Filter: "Excel files (.xls)|*.xls")?[0];
-            TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
-            TurnoverUploader.InsertToDB(sheet);
-            MessageBox.Show("Upload Complete!");
+            if (fileName != null)
+            {
+                TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
+                TurnoverUploader.InsertToDB(sheet);
+                MessageBox.Show("Upload Complete!");
+                Trace.WriteLine($"Upload to database complete for: {fileName}");
+            }
         }
 
         private void MenuItem_ViewUploaded(object sender, RoutedEventArgs e)
         {
             ChooseSQLPage chooseSQLPage = new ChooseSQLPage();
             chooseSQLPage.ShowDialog();
-        }
-
-        private void MenuItem_SwitchFileView(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
