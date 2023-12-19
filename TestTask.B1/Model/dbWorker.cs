@@ -1,17 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Input;
-using System.Xaml;
 
 namespace TestTask.B1.Library
 {
@@ -24,6 +16,10 @@ namespace TestTask.B1.Library
         string connString;
         private MySqlConnection connection;
 
+        /// <summary>
+        /// Constructor for singleton
+        /// Initilizes db
+        /// </summary>
         private dbWorker() 
         {
             var builder = new ConfigurationBuilder()
@@ -38,6 +34,10 @@ namespace TestTask.B1.Library
             this.Initialize();
         }
 
+        /// <summary>
+        /// Singleton instance to maintain single connection
+        /// </summary>
+        /// <returns></returns>
         internal static dbWorker getInstance()
         {
             if (_instance == null)
@@ -50,6 +50,9 @@ namespace TestTask.B1.Library
             return _instance;
         }
 
+        /// <summary>
+        /// Run Initial scripts for db
+        /// </summary>
         private void Initialize()
         {
             string script = File.ReadAllText(this.dbScript);
@@ -61,6 +64,10 @@ namespace TestTask.B1.Library
             }
         }
 
+        /// <summary>
+        /// Execute sql transaction with array of commands
+        /// </summary>
+        /// <param name="sqliteCommands"></param>
         internal void ExecuteNonQuery(string[] sqliteCommands)
         {
             try
@@ -83,13 +90,16 @@ namespace TestTask.B1.Library
             }
         }
 
+        /// <summary>
+        /// Execute sql reader and return its content
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <returns></returns>
         internal MySqlDataReader ExecuteReader(string sqlCommand)
         {
-            MethodInfo dbCreateCommand = typeof(MySqlConnection).GetMethod("CreateCommand");
-            MySqlCommand triggerCommand = (MySqlCommand)dbCreateCommand.Invoke(connection, null);
-            typeof(MySqlCommand).GetProperty("CommandText").SetValue(triggerCommand, sqlCommand);
-            MethodInfo executeReader = typeof(MySqlCommand).GetMethod("ExecuteReader", Type.EmptyTypes);
-            return (MySqlDataReader)executeReader.Invoke(triggerCommand, null);
+            var command = new MySqlCommand("", connection);
+            command.CommandText = sqlCommand;
+            return command.ExecuteReader();
         }
     }
 }

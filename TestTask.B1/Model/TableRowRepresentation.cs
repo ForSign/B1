@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestTask.B1.Model
 {
+    /// <summary>
+    /// Model for row representation
+    /// </summary>
     class TableRowRepresentation
     {
         public TurnoverTableRow row { get; set; }

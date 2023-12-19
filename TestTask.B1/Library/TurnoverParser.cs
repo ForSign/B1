@@ -105,24 +105,24 @@ namespace TestTask.B1.Library
                                      .Select(x => new Model.TurnoverTableRow                    /// and stores Them as array of Models
                                      {
                                          ID = x[0].ToString(),
-                                         InputBalanceActive = x[1].ToString(),
-                                         InputBalancePassive = x[2].ToString(),
-                                         DebitTurnover = x[3].ToString(),
-                                         LoanTurnover = x[4].ToString(),
-                                         OutputBalanceActive = x[5].ToString(),
-                                         OutputBalancePassive = x[6].ToString(),
+                                         InputBalanceActive = Convert.ToDouble(x[1].ToString()),
+                                         InputBalancePassive = Convert.ToDouble(x[2].ToString()),
+                                         DebitTurnover = Convert.ToDouble(x[3].ToString()),
+                                         LoanTurnover = Convert.ToDouble(x[4].ToString()),
+                                         OutputBalanceActive = Convert.ToDouble(x[5].ToString()),
+                                         OutputBalancePassive = Convert.ToDouble(x[6].ToString()),
                                      }).ToList();
 
                 var query = data.Where(x => x[0].ToString().IntCompatible()).Select(x =>        /// Query all data from table that contain values
                     new Model.TurnoverTableRow                                                  /// and stores Them as array of Models
                     {
                         ID = x[0].ToString(),
-                        InputBalanceActive = x[1].ToString(),
-                        InputBalancePassive = x[2].ToString(),
-                        DebitTurnover = x[3].ToString(),
-                        LoanTurnover = x[4].ToString(),
-                        OutputBalanceActive = x[5].ToString(),
-                        OutputBalancePassive = x[6].ToString(),
+                        InputBalanceActive = Convert.ToDouble(x[1].ToString()),
+                        InputBalancePassive = Convert.ToDouble(x[2].ToString()),
+                        DebitTurnover = Convert.ToDouble(x[3].ToString()),
+                        LoanTurnover = Convert.ToDouble(x[4].ToString()),
+                        OutputBalanceActive = Convert.ToDouble(x[5].ToString()),
+                        OutputBalancePassive = Convert.ToDouble(x[6].ToString()),
                     });
 
                 var groupIDs = query.Where(x => x.ID.Length == 2).Select(x => x.ID).ToList();   /// Get all group 2 digit ids
@@ -152,12 +152,12 @@ namespace TestTask.B1.Library
                 var totalTotal = new Model.TurnoverTableRow
                 {
                     ID = lastRow[0].ToString(),
-                    InputBalanceActive = lastRow[1].ToString(),
-                    InputBalancePassive = lastRow[2].ToString(),
-                    DebitTurnover = lastRow[3].ToString(),
-                    LoanTurnover = lastRow[4].ToString(),
-                    OutputBalanceActive = lastRow[5].ToString(),
-                    OutputBalancePassive = lastRow[6].ToString(),
+                    InputBalanceActive = Convert.ToDouble(lastRow[1].ToString()),
+                    InputBalancePassive = Convert.ToDouble(lastRow[2].ToString()),
+                    DebitTurnover = Convert.ToDouble(lastRow[3].ToString()),
+                    LoanTurnover = Convert.ToDouble(lastRow[4].ToString()),
+                    OutputBalanceActive = Convert.ToDouble(lastRow[5].ToString()),
+                    OutputBalancePassive = Convert.ToDouble(lastRow[6].ToString()),
                 };
 
                 #endregion

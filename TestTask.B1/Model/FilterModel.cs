@@ -7,6 +7,10 @@ using System.Windows.Forms;
 
 namespace TestTask.B1.Model
 {
+    /// <summary>
+    /// Model to represent filter in task1
+    /// Thus allowong us to make it dynamic
+    /// </summary>
     internal class FilterModel
     {
         public string filterText { get; set; }
