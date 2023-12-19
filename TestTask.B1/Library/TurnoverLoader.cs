@@ -70,6 +70,7 @@ namespace TestTask.B1.Library
             List<string> table_id = new List<string>();
 
             #region #Load Sheet
+            /// Load data from sql sheet to model
 
             dt.Load(db.ExecuteReader("SELECT * FROM `B1`.`turnover_sheet` " +
                                      $"WHERE id='{sheet_id}'"));
@@ -88,7 +89,8 @@ namespace TestTask.B1.Library
             #endregion
 
             #region #Load Header
-            
+            /// Load data from sql header to model
+
             dt.Load(db.ExecuteReader("SELECT * FROM `B1`.`turnover_header` " +
                                      $"WHERE id='{header_id}'"));
             rows = dt.AsEnumerable().ToArray();

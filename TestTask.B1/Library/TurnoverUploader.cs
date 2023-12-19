@@ -64,7 +64,8 @@ namespace TestTask.B1.Library
                 List<string> InsertToDB = new List<string>();
 
                 #region #Header
-
+                /// Upload data from header to sql
+                
                 InsertToDB.Add("INSERT INTO `B1`.`turnover_subheader` " +
                                "(header, column1, column2)" +
                                "values " +
@@ -102,6 +103,7 @@ namespace TestTask.B1.Library
                 #endregion
 
                 #region #Sheet
+                /// Upload data from sheet to sql
 
                 InsertToDB.Add(getInsertRowString(sheet.TotalBySheet));
                 InsertToDB.Add("INSERT INTO `B1`.`turnover_sheet` " +
@@ -122,6 +124,7 @@ namespace TestTask.B1.Library
                 #endregion
 
                 #region #Table, groups, rows
+                /// Upload data from table, groups, rows to sql
 
                 sheet.Tables.Each((table, _) =>
                 {

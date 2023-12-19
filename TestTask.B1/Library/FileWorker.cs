@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,13 @@ namespace TestTask.B1.Library
 {
     internal static class FileWorker
     {
+        /// <summary>
+        /// Shows open file dialog and
+        /// return selected file paths
+        /// </summary>
+        /// <param name="Multiselect"></param>
+        /// <param name="Filter"></param>
+        /// <returns></returns>
         internal static string[]? OpenFile(bool Multiselect, string Filter = "Txt files (.txt)|*.txt")
         {
             var dlg = new OpenFileDialog();
@@ -34,6 +40,14 @@ namespace TestTask.B1.Library
             return new string[] { dlg.FileName };
         }
 
+
+        /// <summary>
+        /// Shows save file dialog and
+        /// return selected file paths
+        /// </summary>
+        /// <param name="Multiselect"></param>
+        /// <param name="Filter"></param>
+        /// <returns></returns>
         internal static string? SaveFile()
         {
             SaveFileDialog dlg = new SaveFileDialog();
@@ -52,6 +66,12 @@ namespace TestTask.B1.Library
             return dlg.FileName;
         }
 
+
+        /// <summary>
+        /// Opens stream to merge files binary
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="outFilePath"></param>
         internal static void MergeFiles(string[] files, string outFilePath)
         {
             Trace.WriteLine($"Total files queued for merge: {files.Length}");
@@ -70,6 +90,12 @@ namespace TestTask.B1.Library
             }
         }
 
+        /// <summary>
+        /// Purge data from files
+        /// Data purged matches filterArray
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="outFilePath"></param>
         internal static void PurgeFiles(string[] filterArray, string[] files)
         {
             int total = 0;
