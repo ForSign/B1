@@ -1,5 +1,5 @@
 ﻿{
     "ConnectionStrings": {
-        "Default": "Server=127.0.0.1;User ID=root;Password=13yfnjjk0kdw60fo4zjmjeaws;Database=b1"
+        "Default": "Server=127.0.0.1;User ID=root;Password=13yfnjjk0kdw60fo4zjmjeaws;Database=b1;Allow User Variables=true;"
     }
 }
