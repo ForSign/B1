@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:TestTask.B1"
              StartupUri="View/MainPage.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="static/styles/ScrollBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

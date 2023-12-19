@@ -35,6 +35,11 @@ namespace TestTask.B1
         {
             InitializeComponent();
 #if DEBUG
+            string fileName = @"C:\\Users\\AAA\\Desktop\\TestTask\\Excel\\ОСВ для тренинга.xls";
+            TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
+            TableViewPage pp = new TableViewPage(sheet);
+            pp.ShowDialog();
+            App.Current.Shutdown();
             MenuItem_UploadXLS(new object(), new RoutedEventArgs());
 #endif
         }
@@ -124,7 +129,7 @@ namespace TestTask.B1
 #elif DEBUG
             string fileName = @"C:\\Users\\AAA\\Desktop\\TestTask\\Excel\\ОСВ для тренинга.xls";
 #endif
-            TurnoverSheet sheet = TurnoverParser.Parse(fileName);
+            TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
             return;
         }
 
