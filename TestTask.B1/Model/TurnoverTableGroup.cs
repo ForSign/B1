@@ -8,7 +8,9 @@ namespace TestTask.B1.Model
 {
     class TurnoverTableGroup
     {
-        string? GroupID { get; set; }                                                    /// 2 digit group identifier
-        List<TurnoverTableRow>? TableRows { get; set; }                                  /// Group rows
+        public string? GroupID { get; set; }                                             /// 2 digit group identifier
+        public List<TurnoverTableRow>? TableRows { get; set; }                           /// Group rows
+
+        public TurnoverTableGroup() { }
     }
 }

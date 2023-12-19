@@ -21,6 +21,8 @@ namespace TestTask.B1.Model
                 this.ColumnSplit1 = column1;
                 this.ColumnSplit2 = column2;
             }
+
+            public TurnoverSubHeader() { }
         }
 
         public string Column1 { get; private set; }                                      /// 1 Column name

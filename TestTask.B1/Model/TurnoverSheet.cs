@@ -17,5 +17,7 @@ namespace TestTask.B1.Model
         public List<TurnoverTable>? Tables { get; set; }                                 /// Class tables (exmple: 1 - 9)
 
         public TurnoverTableRow? TotalBySheet { get; set; }                              /// Total balance row
+
+        public TurnoverSheet() { }
     }
 }

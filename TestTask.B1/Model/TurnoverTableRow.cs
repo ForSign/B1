@@ -15,5 +15,7 @@ namespace TestTask.B1.Model
         public string? LoanTurnover { get; set; }                                        /// 4 Column Data
         public string? OutputBalanceActive { get; set; }                                 /// 5 Column Data
         public string? OutputBalancePassive { get; set; }                                /// 6 Column Data
+
+        public TurnoverTableRow() { }
     }
 }
