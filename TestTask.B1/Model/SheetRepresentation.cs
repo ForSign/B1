@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestTask.B1.Model
 {
+    /// <summary>
+    /// Model for sheet representation in TableViewPage
+    /// </summary>
     internal class SheetRepresentation
     {
         public TurnoverSheet sheet { get; set; }
