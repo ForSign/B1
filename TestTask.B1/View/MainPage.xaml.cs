@@ -23,6 +23,8 @@ using System.Data.OleDb;
 using ExcelDataReader;
 using static TestTask.B1.Library.Extensions;
 using TestTask.B1.Model;
+using System.ComponentModel;
+using System.Threading;
 
 namespace TestTask.B1
 {
@@ -34,9 +36,6 @@ namespace TestTask.B1
         public MainWindow()
         {
             InitializeComponent();
-#if DEBUG
-            MenuItem_ViewUploaded(new object(), new RoutedEventArgs());
-#endif
         }
 
         private void MenuItem_GenFiles(object sender, RoutedEventArgs e)
@@ -52,6 +51,15 @@ namespace TestTask.B1
         }
 
         private void MenuItem_InsertFiles(object sender, RoutedEventArgs e)
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += worker_DoWork;
+
+            worker.RunWorkerAsync();
+        }
+
+        private void worker_DoWork(object? sender, DoWorkEventArgs e)
         {
             if (MessageBox.Show("Do you wish to filter files beforehand?", "Warning", MessageBoxButton.YesNo)
                 == MessageBoxResult.Yes)
@@ -82,14 +90,16 @@ namespace TestTask.B1
                 {
                     currentLine++;
                     Trace.WriteLine($"Importing {currentLine} line out of {totalLines}. Left: {totalLines - currentLine}");
+                    //(sender as BackgroundWorker).ReportProgress(currentLine / totalLines);
 
                     data = line.Split("||");
                     sqlCommand = "insert into Task_1 " +
-                        $"(DateTimeStamp, CharsetENG, CharsetRUS, DecimalValue, DoubleValue) " +
+                        $"(date_timestamp, charset_eng, charset_rus, decimal_value, double_value) " +
                         $"values " +
                         $"('{data[0]}', '{data[1]}', '{data[2]}', '{data[3]}', '{data[4]}');";
 
                     db.ExecuteNonQuery(new string[] { sqlCommand });
+                    Thread.Sleep(100);
                 }
 
                 Trace.WriteLine("Done importing");
