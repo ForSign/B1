@@ -8,22 +8,14 @@ namespace TestTask.B1.Model
 {
     internal class TurnoverSheet
     {
-        public string BankName { get; set; } = "No entry set";
-        public string SheetDescription { get; set; } = "No entry set";
-        public string Currency { get; set; } = "No entry set";
-        public DateTime SheetDate { get; set; } = DateTime.MinValue;
+        public string? BankName { get; set; }                                            /// Bank name
+        public string? SheetDescription { get; set; }                                    /// Globlal description of document
+        public string? Currency { get; set; }                                            /// Currency type
+        public DateTime SheetDate { get; set; } = DateTime.MinValue;                     /// Date of document
 
-        public TurnoverHeader? Header { get; set; }
-        public List<TurnoverTable>? turnoverTables { get; set; }
+        public TurnoverHeader? Header { get; set; }                                      /// Table column header names
+        public List<TurnoverTable>? Tables { get; set; }                                 /// Class tables (exmple: 1 - 9)
 
-        public List<string>? ClassNames { get; set; }
-        public List<TurnoverTable>? TotalByClass {  get; set; }
-
-        public TurnoverTable? TotalBySheet { get; set; }
-
-        public TurnoverSheet()
-        {
-
-        }
+        public TurnoverTableRow? TotalBySheet { get; set; }                              /// Total balance row
     }
 }

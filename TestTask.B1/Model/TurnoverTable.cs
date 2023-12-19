@@ -6,19 +6,11 @@ using System.Threading.Tasks;
 
 namespace TestTask.B1.Model
 {
-    internal class TurnoverTable
+    class TurnoverTable
     {
-        public string? ID { get; set; }
-        public string? InputBalanceActive { get; set; }
-        public string? InputBalancePassive { get; set; }
-        public string? DebitTurnover { get; set; }
-        public string? LoanTurnover { get; set; }
-        public string? OutputBalanceActive { get; set; }
-        public string? OutputBalancePassive { get; set; }
+        string? ClassName { get; set; }                                                  /// Class name
+        List<TurnoverTableGroup>? AccountGroups { get; set; }                            /// 4 digit account groups
 
-        public TurnoverTable() 
-        {
-            
-        }
+        TurnoverTableRow? TotalByClass { get; set; }                                     /// Class total
     }
 }
