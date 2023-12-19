@@ -23,13 +23,20 @@ namespace TestTask.B1.View
             Loaded += SuperPAGE_Loaded;
         }
 
+        /// <summary>
+        /// Sets data for representation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SuperPAGE_Loaded(object sender, RoutedEventArgs e)
         {
+            /// Sheet MetaData
             this.BankName.Content = sheet.BankName;
             this.Meta.Text = sheet.SheetDescription.Replace(";;", "\n");
             this.Date.Content = sheet.SheetDate.ToString();
             this.Currency.Content = sheet.Currency;
 
+            /// Sheet Headers
             this.Column1.Content = sheet.Header.Column1;
 
             this.InputBalance.Content = sheet.Header.Column2.Header;
@@ -44,6 +51,7 @@ namespace TestTask.B1.View
             this.Column6.Content = sheet.Header.Column4.ColumnSplit1;
             this.Column7.Content = sheet.Header.Column4.ColumnSplit2;
 
+            /// Sheet Rows
             sheet.Tables.Each((table, _) =>
             {
                 turnoverTableRows.Add(new TableRowRepresentation( new TurnoverTableRow
@@ -63,6 +71,7 @@ namespace TestTask.B1.View
             });
             turnoverTableRows.Add(new TableRowRepresentation(sheet.TotalBySheet, "Bold"));
 
+            /// Link ItemSource
             LV_Table.ItemsSource = turnoverTableRows;
         }
     }

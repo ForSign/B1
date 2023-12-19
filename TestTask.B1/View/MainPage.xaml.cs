@@ -22,20 +22,37 @@ namespace TestTask.B1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Task 1 generation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_GenFiles(object sender, RoutedEventArgs e)
         {
             GenerateFilesPage generateFilesPage = new GenerateFilesPage();
             generateFilesPage.ShowDialog();
         }
 
+        /// <summary>
+        /// Task 1 merge files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_MergeFiles(object sender, RoutedEventArgs e)
         {
             MergeFilesPage mergeFilesPage = new MergeFilesPage();
             mergeFilesPage.ShowDialog();
         }
 
+        /// <summary>
+        /// Task 1 insert files to mysql async as background worker
+        /// Thus allowing us to display progress
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_InsertFiles(object sender, RoutedEventArgs e)
         {
+            /// Prompt user to purge files before insert
             if (MessageBox.Show("Do you wish to filter files beforehand?", "Warning", MessageBoxButton.YesNo)
                 == MessageBoxResult.Yes)
                 (new MergeFilesPage()).ShowDialog();
@@ -47,6 +64,11 @@ namespace TestTask.B1
             worker.RunWorkerAsync();
         }
 
+        /// <summary>
+        /// The insert work done by BackgroundWorker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void worker_DoWork(object? sender, DoWorkEventArgs e)
         {
 
@@ -58,6 +80,7 @@ namespace TestTask.B1
             if (files is null)
                 return;
 
+            /// Merge files into one, so we can count lines
             FileWorker.MergeFiles(files, tempFile);
 
             int totalLines = File.ReadLines(tempFile).Count();
@@ -72,6 +95,8 @@ namespace TestTask.B1
                 var db = dbWorker.getInstance();
                 bool dataCorrupted = false;
 
+                /// Read merged file line by line
+                /// insert it and trace progress
                 while ((line = sr.ReadLine()) != null)
                 {
                     currentLine++;
@@ -98,6 +123,11 @@ namespace TestTask.B1
             }
         }
 
+        /// <summary>
+        /// Launch external_sql to count median of double_value and sum of decimal_value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_CountMAS(object sender, RoutedEventArgs e)
         {
             string script = File.ReadAllText("static/sql/external_sql.sql");
@@ -118,6 +148,13 @@ namespace TestTask.B1
             }
         }
 
+        /// <summary>
+        /// Prompts user for excel file
+        /// Then populate it to TurnoverSheet object
+        /// Then uses TurnoverUploader to put it into db
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_UploadXLS(object sender, RoutedEventArgs e)
         {
             string? fileName = FileWorker.OpenFile(Multiselect: false, Filter: "Excel files (.xls)|*.xls")?[0];
@@ -130,6 +167,11 @@ namespace TestTask.B1
             }
         }
 
+        /// <summary>
+        /// Open view page for all sheets for user to choose from
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_ViewUploaded(object sender, RoutedEventArgs e)
         {
             ChooseSQLPage chooseSQLPage = new ChooseSQLPage();

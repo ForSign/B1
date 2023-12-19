@@ -8,6 +8,9 @@ using TestTask.B1.Interface;
 
 namespace TestTask.B1.Library
 {
+    /// <summary>
+    /// Overrides default behavior of TraceListener
+    /// </summary>
     class TraceTextSource : TraceListener
     {
         public ITraceTextSink Sink { get; private set; }

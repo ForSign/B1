@@ -22,6 +22,11 @@ namespace TestTask.B1.View
             Loaded += WindowLoaded;
         }
 
+        /// <summary>
+        /// On load of window executes open file button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             xName_FileCount.Text = DefaultFileCount.ToString();
@@ -30,6 +35,11 @@ namespace TestTask.B1.View
             xBtn_SelectFolder.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
         }
 
+        /// <summary>
+        /// Launches Generator with user-specified parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Generate(object sender, RoutedEventArgs e)
         {
             int fileCount;
@@ -60,6 +70,11 @@ namespace TestTask.B1.View
             this.Close(); // Return Control due to ShowDialog();
         }
 
+        /// <summary>
+        /// Opens select folder dialog and save it to FolderPath
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_SelectFolder(object sender, RoutedEventArgs e)
         {
             using (var fbd = new System.Windows.Forms.FolderBrowserDialog())

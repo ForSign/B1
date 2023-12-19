@@ -8,6 +8,9 @@ namespace TestTask.B1.Model
 {
     internal class TurnoverHeader
     {
+        /// <summary>
+        /// Sub header of main header
+        /// </summary>
         public class TurnoverSubHeader
         {
             public string Header { get; set; }                                           /// Column name

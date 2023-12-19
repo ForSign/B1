@@ -21,12 +21,22 @@ namespace TestTask.B1.View
             Loaded += WindowLoaded;
         }
 
+        /// <summary>
+        /// After window loaded set ItemsSource list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             filterList.Add(new Model.FilterModel());
             LV_Filters.ItemsSource = filterList;
         }
 
+        /// <summary>
+        /// If there was an example data after GotFocus event accur erase it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GotFocus_ClearExample(object sender, RoutedEventArgs e)
         {
             TextBox? tb = sender as TextBox;
@@ -38,6 +48,11 @@ namespace TestTask.B1.View
             }
         }
 
+        /// <summary>
+        /// Set focus to textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LV_Filters_GotFocus(object sender, RoutedEventArgs e)
         {
             var a = ForSign.SPM.Library.UIHelpers.GetChildOfType<TextBox>
@@ -47,6 +62,13 @@ namespace TestTask.B1.View
                 a.Focus();
         }
 
+        /// <summary>
+        /// Prompt select files to purge
+        /// Then prompt to savefile
+        /// Purges them and merges to savefile
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_PurgeMerge(object sender, RoutedEventArgs e)
         {
             List<string> filterArray = new List<string>();

@@ -30,6 +30,10 @@ namespace TestTask.B1.View
             AppendText(msg);
         }
 
+        /// <summary>
+        /// Append text to textbox
+        /// </summary>
+        /// <param name="msg"></param>
         private void AppendText(string msg)
         {
             if (Dispatcher.CheckAccess())
@@ -43,11 +47,20 @@ namespace TestTask.B1.View
             }
         }
 
+        /// <summary>
+        /// If trace error append text
+        /// </summary>
+        /// <param name="msg"></param>
         public void Fail(string msg)
         {
             AppendText(msg);
         }
 
+        /// <summary>
+        /// After control loaded subscribe to Listener
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (AutoAttach && _listener == null)
@@ -56,6 +69,12 @@ namespace TestTask.B1.View
                 Trace.Listeners.Add(_listener);
             }
         }
+
+        /// <summary>
+        /// After control unloaded unsubscribe from Listener
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             if (_listener != null)

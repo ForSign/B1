@@ -114,6 +114,7 @@ namespace TestTask.B1.Library
             #endregion
 
             #region #Load Tables
+            /// Load data from sql tables to model
 
             sheet.Tables = new List<TurnoverTable>();
 
@@ -136,6 +137,7 @@ namespace TestTask.B1.Library
             #endregion
 
             #region #Load Groups and Rows
+            /// Load data from sql groups and rows to model
 
             sheet.Tables.Each((table, i) =>
             {

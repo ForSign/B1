@@ -24,6 +24,12 @@ namespace TestTask.B1.View
             Loaded += ChooseSQLPage_Loaded;
         }
 
+        /// <summary>
+        /// On page load display all sheets for user to select from
+        /// Uses representation row model
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChooseSQLPage_Loaded(object sender, RoutedEventArgs e)
         {
             var dt = new DataTable();
@@ -48,6 +54,10 @@ namespace TestTask.B1.View
             LV_sql.ItemsSource = sheet_list;
         }
 
+        /// <summary>
+        /// Returns selected in listview element
+        /// </summary>
+        /// <returns></returns>
         private SheetRepresentation getSelectedModel()
         {
             ListView t;
@@ -68,6 +78,11 @@ namespace TestTask.B1.View
             return t.SelectedItem as SheetRepresentation;
         }
 
+
+        /// <summary>
+        /// Opens view
+        /// </summary>
+        /// <returns></returns>
         private void Btn_OpenView(object sender, RoutedEventArgs e)
         {
             var model = getSelectedModel();
@@ -85,6 +100,10 @@ namespace TestTask.B1.View
             }
         }
 
+        /// <summary>
+        /// Detects selection and update selected control
+        /// </summary>
+        /// <returns></returns>
         private void xGotFocus_DB(object sender, RoutedEventArgs e)
         {
             var control = ForSign.SPM.Library.UIHelpers.TryFindParent<ListView>
