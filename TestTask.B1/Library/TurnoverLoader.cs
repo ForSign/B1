@@ -31,12 +31,12 @@ namespace TestTask.B1.Library
                 TurnoverTableRow row = new TurnoverTableRow();
 
                 row.ID = rows[0][1].ToString();
-                row.InputBalanceActive = rows[0][2].ToString();
-                row.InputBalancePassive = rows[0][3].ToString();
-                row.DebitTurnover = rows[0][4].ToString();
-                row.LoanTurnover = rows[0][5].ToString();
-                row.OutputBalanceActive = rows[0][6].ToString();
-                row.OutputBalancePassive = rows[0][7].ToString();
+                row.InputBalanceActive = Convert.ToDouble(rows[0][2].ToString());
+                row.InputBalancePassive = Convert.ToDouble(rows[0][3].ToString());
+                row.DebitTurnover = Convert.ToDouble(rows[0][4].ToString());
+                row.LoanTurnover = Convert.ToDouble(rows[0][5].ToString());
+                row.OutputBalanceActive = Convert.ToDouble(rows[0][6].ToString());
+                row.OutputBalancePassive = Convert.ToDouble(rows[0][7].ToString());
 
                 return row;
             }
@@ -162,12 +162,12 @@ namespace TestTask.B1.Library
                         list_rows.Add(new TurnoverTableRow
                         {
                             ID = r[1].ToString(),
-                            InputBalanceActive = r[2].ToString(),
-                            InputBalancePassive = r[3].ToString(),
-                            DebitTurnover = r[4].ToString(),
-                            LoanTurnover = r[5].ToString(),
-                            OutputBalanceActive = r[6].ToString(),
-                            OutputBalancePassive = r[7].ToString(),
+                            InputBalanceActive = Convert.ToDouble(r[2].ToString()),
+                            InputBalancePassive = Convert.ToDouble(r[3].ToString()),
+                            DebitTurnover = Convert.ToDouble(r[4].ToString()),
+                            LoanTurnover = Convert.ToDouble(r[5].ToString()),
+                            OutputBalanceActive = Convert.ToDouble(r[6].ToString()),
+                            OutputBalancePassive = Convert.ToDouble(r[7].ToString()),
                         });
                     });
 
