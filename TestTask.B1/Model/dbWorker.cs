@@ -1,17 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Input;
-using System.Xaml;
 
 namespace TestTask.B1.Library
 {

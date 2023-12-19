@@ -2,29 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TestTask.B1.View;
 using TestTask.B1.Library;
-using System.Diagnostics.Metrics;
 using System.IO;
-using System.Data.SqlClient;
 using System.Data;
-using System.Data.OleDb;
-using ExcelDataReader;
-using static TestTask.B1.Library.Extensions;
 using TestTask.B1.Model;
 using System.ComponentModel;
-using System.Threading;
 
 namespace TestTask.B1
 {

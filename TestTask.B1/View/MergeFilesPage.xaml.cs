@@ -1,12 +1,8 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using TestTask.B1.Library;
 
 namespace TestTask.B1.View
