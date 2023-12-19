@@ -81,7 +81,7 @@ namespace TestTask.B1.Library
             sheet.SheetDate = DateTime.Parse(rows[0][4].ToString());
 
             header_id = rows[0][5].ToString();
-            totalRow_id = rows[0][6].ToString();
+            sheet.TotalBySheet = GetTurnoverTableRow(rows[0][6].ToString());
 
             dt.Reset();
 
