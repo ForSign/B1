@@ -74,3 +74,6 @@ BankName - - - - - Date
 
 Selecting file will display its content  
 ![alt text](https://github.com/ForSign/B1/raw/master/img/20.png)
+
+# DataBase diagramm
+![alt text](https://github.com/ForSign/B1/raw/master/img/db.png)
