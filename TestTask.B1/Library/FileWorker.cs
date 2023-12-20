@@ -13,12 +13,12 @@ namespace TestTask.B1.Library
 {
     internal static class FileWorker
     {
-        internal static string[]? OpenFile(bool Multiselect)
+        internal static string[]? OpenFile(bool Multiselect, string Filter = "Txt files (.txt)|*.txt")
         {
             var dlg = new OpenFileDialog();
 
             dlg.DefaultExt = ".txt";
-            dlg.Filter = "Txt files (.txt)|*.txt";
+            dlg.Filter = Filter;
             dlg.Multiselect = Multiselect;
 
             Nullable<bool> dialogResult = dlg.ShowDialog();

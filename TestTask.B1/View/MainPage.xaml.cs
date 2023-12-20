@@ -19,6 +19,10 @@ using System.Diagnostics.Metrics;
 using System.IO;
 using System.Data.SqlClient;
 using System.Data;
+using System.Data.OleDb;
+using ExcelDataReader;
+using static TestTask.B1.Library.Extensions;
+using TestTask.B1.Model;
 
 namespace TestTask.B1
 {
@@ -30,6 +34,9 @@ namespace TestTask.B1
         public MainWindow()
         {
             InitializeComponent();
+#if DEBUG
+            MenuItem_ViewUploaded(new object(), new RoutedEventArgs());
+#endif
         }
 
         private void MenuItem_GenFiles(object sender, RoutedEventArgs e)
@@ -91,7 +98,7 @@ namespace TestTask.B1
 
         private void MenuItem_CountMAS(object sender, RoutedEventArgs e)
         {
-            string script = File.ReadAllText("static/external_sql.sql");
+            string script = File.ReadAllText("static/sql/external_sql.sql");
 
             if (script != null)
             {
@@ -111,12 +118,16 @@ namespace TestTask.B1
 
         private void MenuItem_UploadXLS(object sender, RoutedEventArgs e)
         {
-
+            string? fileName = FileWorker.OpenFile(Multiselect: false, Filter: "Excel files (.xls)|*.xls")?[0];
+            TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
+            TurnoverUploader.InsertToDB(sheet);
+            MessageBox.Show("Upload Complete!");
         }
 
         private void MenuItem_ViewUploaded(object sender, RoutedEventArgs e)
         {
-
+            ChooseSQLPage chooseSQLPage = new ChooseSQLPage();
+            chooseSQLPage.ShowDialog();
         }
 
         private void MenuItem_SwitchFileView(object sender, RoutedEventArgs e)

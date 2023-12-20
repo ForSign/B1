@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Blend for Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.B1", "TestTask.B1\TestTask.B1.csproj", "{28FBBCF4-7D30-4B71-8C25-22059E95C262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTask.B1", "TestTask.B1\TestTask.B1.csproj", "{28FBBCF4-7D30-4B71-8C25-22059E95C262}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
