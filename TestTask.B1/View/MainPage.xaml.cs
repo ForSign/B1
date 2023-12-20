@@ -35,12 +35,13 @@ namespace TestTask.B1
         {
             InitializeComponent();
 #if DEBUG
-            string fileName = @"C:\\Users\\AAA\\Desktop\\TestTask\\Excel\\ОСВ для тренинга.xls";
-            TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
-            TableViewPage pp = new TableViewPage(sheet);
-            pp.ShowDialog();
-            App.Current.Shutdown();
-            MenuItem_UploadXLS(new object(), new RoutedEventArgs());
+            //            string fileName = @"C:\\Users\\AAA\\Desktop\\TestTask\\Excel\\ОСВ для тренинга.xls";
+            //            TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
+            //            TableViewPage pp = new TableViewPage(sheet);
+            //            pp.ShowDialog();
+            //            App.Current.Shutdown();
+            //            MenuItem_UploadXLS(new object(), new RoutedEventArgs());
+            MenuItem_ViewUploaded(new object(), new RoutedEventArgs());
 #endif
         }
 
@@ -103,7 +104,7 @@ namespace TestTask.B1
 
         private void MenuItem_CountMAS(object sender, RoutedEventArgs e)
         {
-            string script = File.ReadAllText("static/external_sql.sql");
+            string script = File.ReadAllText("static/sql/external_sql.sql");
 
             if (script != null)
             {
@@ -130,12 +131,12 @@ namespace TestTask.B1
             string fileName = @"C:\\Users\\AAA\\Desktop\\TestTask\\Excel\\ОСВ для тренинга.xls";
 #endif
             TurnoverSheet? sheet = TurnoverParser.Parse(fileName);
-            return;
+            TurnoverUploader.InsertToDB(sheet);
         }
 
         private void MenuItem_ViewUploaded(object sender, RoutedEventArgs e)
         {
-
+            TurnoverSheet sheet = TurnoverLoader.LoadSheetFromDB(1);
         }
 
         private void MenuItem_SwitchFileView(object sender, RoutedEventArgs e)

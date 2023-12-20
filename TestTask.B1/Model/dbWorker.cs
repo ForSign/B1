@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using MySqlConnector;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -16,33 +19,23 @@ namespace TestTask.B1.Library
     {
         private static dbWorker _instance;
         private static readonly object syncRoot = new Object();
+        private string dbScript = "static/sql/db_initial.sql";
 
-        private static string[] InitTables = new string[] { "" };
-        private string dbPath = System.Environment.CurrentDirectory + "\\db";
-        private string dbFilePath;
-        private string strConnection;
-
-        private SQLiteConnection connection;
+        string connString;
+        private MySqlConnection connection;
 
         private dbWorker() 
         {
-            CreateSQLiteDbFile();
-            this.strConnection = $"Data Source={dbFilePath};";
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("settings/config.json", optional: false, reloadOnChange: true);
+            IConfiguration _configuration = builder.Build();
+            connString = _configuration.GetConnectionString("Default");
 
-            InitTables[0] = "" +
-                "CREATE TABLE IF NOT EXISTS Task_1 (" +
-                "`id` INTEGER NOT NULL UNIQUE, " +
-                "`DateTimeStamp` TEXT, " +
-                "`CharsetENG` TEXT, " +
-                "`CharsetRUS` TEXT, " +
-                "`DecimalValue` INT, " +
-                "`DoubleValue` REAL, " +
-                "PRIMARY KEY(`id` AUTOINCREMENT));";
-
-            connection = new SQLiteConnection(this.strConnection);
+            connection = new MySqlConnection(connString);
             connection.Open();
 
-            ExecuteNonQuery(InitTables);
+            this.Initialize();
         }
 
         internal static dbWorker getInstance()
@@ -57,16 +50,14 @@ namespace TestTask.B1.Library
             return _instance;
         }
 
-        private void CreateSQLiteDbFile()
+        private void Initialize()
         {
-            if (!string.IsNullOrEmpty(dbPath) && !Directory.Exists(dbPath))
-                Directory.CreateDirectory(dbPath);
+            string script = File.ReadAllText(this.dbScript);
 
-            dbFilePath = dbPath + "\\TestTask.sqlite";
-
-            if (!System.IO.File.Exists(dbFilePath))
+            if (script != null)
             {
-                SQLiteConnection.CreateFile(dbFilePath);
+                this.ExecuteNonQuery(new string[] {script});
+                Trace.WriteLine($"DB Initialized");
             }
         }
 
@@ -74,8 +65,10 @@ namespace TestTask.B1.Library
         {
             try
             {
-                using (var command = new SQLiteCommand("", this.connection))
+                //using (var conn = new MySqlConnection(connString))
+                using (var command = new MySqlCommand("", this.connection))
                 {
+                    //conn.Open();
                     foreach (var cmd in sqliteCommands)
                     {
                         command.CommandText = cmd;
@@ -90,13 +83,13 @@ namespace TestTask.B1.Library
             }
         }
 
-        internal SQLiteDataReader ExecuteReader(string sqlCommand)
+        internal MySqlDataReader ExecuteReader(string sqlCommand)
         {
-            MethodInfo dbCreateCommand = typeof(SQLiteConnection).GetMethod("CreateCommand");
-            SQLiteCommand triggerCommand = (SQLiteCommand)dbCreateCommand.Invoke(connection, null);
-            typeof(SQLiteCommand).GetProperty("CommandText").SetValue(triggerCommand, sqlCommand);
-            MethodInfo executeReader = typeof(SQLiteCommand).GetMethod("ExecuteReader", Type.EmptyTypes);
-            return (SQLiteDataReader)executeReader.Invoke(triggerCommand, null);
+            MethodInfo dbCreateCommand = typeof(MySqlConnection).GetMethod("CreateCommand");
+            MySqlCommand triggerCommand = (MySqlCommand)dbCreateCommand.Invoke(connection, null);
+            typeof(MySqlCommand).GetProperty("CommandText").SetValue(triggerCommand, sqlCommand);
+            MethodInfo executeReader = typeof(MySqlCommand).GetMethod("ExecuteReader", Type.EmptyTypes);
+            return (MySqlDataReader)executeReader.Invoke(triggerCommand, null);
         }
     }
 }

@@ -12,19 +12,32 @@
   <ItemGroup>
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="MySqlConnector" Version="2.3.3" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.118" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="static\external_sql.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+	  <Content Include="settings\config.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Folder Include="static\sql\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="static\styles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="static\sql\db_initial.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="static\sql\external_sql.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
